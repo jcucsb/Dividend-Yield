@@ -124,20 +124,33 @@ for item in DividendStocks:
 
 # This uses a lambda expression to sort the dictionary by the relevant key
 # In this case I sorted by Dividend Yield since I want to find the highest Daily Dividend Yield 
-# for all the Dividend Aristocrats. Can sort by highest by adding the reverse=True parameter 
+# for all the Dividend Aristocrats. Sorts by greatest by adding the reverse=True parameter 
 
-DividendData = sorted(DividendData, key = lambda x: x['Dividend Yield'])
+
+DividendData = sorted(DividendData, key = lambda x: x['Dividend Yield'], reverse=True)
 print(DividendData)
 
+Top10 = DividendData[0:10]
+
+print("The Top 10 Dividend Stocks are: ")
+for items in Top10:
+    print(items, "\n")
 
 ''' Alternate method to scrape for price and change
 price = soup.find('fin-streamer', {'class': 'Fw(b) Fz(36px) Mb(-4px) D(ib)'}).text
 change = soup.find('fin-streamer', {'class': 'Fw(500) Pstart(8px) Fz(24px)'}).text
 '''
 
-# Adding Data to a JSON file
+# Dividend Data JSON file
 
 with open('DividendData.json', 'w') as f:
     json.dump(DividendData, f)
 
-print("JSON file created")
+print("DividendData JSON file created")
+
+# Top 10 Dividend Stocks JSON file
+
+with open('Top10Dividend.json', 'w') as f:
+    json.dump(Top10, f)
+
+print("Top10DividendStocks JSON file created")
